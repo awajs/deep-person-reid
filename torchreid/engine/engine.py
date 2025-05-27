@@ -416,8 +416,13 @@ class Engine(object):
         print('** Results **')
         print('mAP: {:.1%}'.format(mAP))
         print('CMC curve')
+        max_rank = len(cmc)
         for r in ranks:
-            print('Rank-{:<3}: {:.1%}'.format(r, cmc[r - 1]))
+            if r <= max_rank:
+                print('Rank-{:<3}: {:.1%}'.format(r, cmc[r - 1]))
+            else:
+                print(f"Rank-{r:<3}: (not enough gallery images for this rank)")
+
 
         if visrank:
             visualize_ranked_results(
